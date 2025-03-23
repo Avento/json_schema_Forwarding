@@ -118,22 +118,115 @@ UNEXPECTED_ERROR      # Uncaught exceptions
 ## ✊ Load Testing
 ### Forwarding Performance
 ```bash  
-$ hey -z 30s -c 100 -m POST -H "Content-Type: application/json" -H "Authorization: Bearer xx-xx-xx" -d '{"model":"ep-xx","messages":[{"role":"system","content":"You are a helpful assistant."},{"role":"user","content":"Hello!"}]}' http://0.0.0.0:8000/chat/completions  
+$ hey -z 30s -c 100 -m POST   -H "Content-Type: application/json"   -H "Authorization: Bearer xx-xx-xx"   -d '{
+    "model": "ep-xx",
+    "messages": [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Hello!"}
+    ]
+  }'   http://0.0.0.0:8000/chat/completions
 
-Requests/sec: 111.4224  
-Latency distribution:  
-  50% in 0.6781s  
-  99% in 1.9287s  
+Summary:
+  Total:        33.2698 secs
+  Slowest:      3.5171 secs
+  Fastest:      0.4390 secs
+  Average:      0.8242 secs
+  Requests/sec: 111.4224
+
+  Total data:   1815019 bytes
+  Size/request: 489 bytes
+
+Response time histogram:
+  0.439 [1]     |
+  0.747 [2664]  |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  1.055 [390]   |■■■■■■
+  1.362 [87]    |■
+  1.670 [453]   |■■■■■■■
+  1.978 [81]    |■
+  2.286 [11]    |
+  2.594 [11]    |
+  2.901 [4]     |
+  3.209 [1]     |
+  3.517 [4]     |
+
+
+Latency distribution:
+  10% in 0.5930 secs
+  25% in 0.6294 secs
+  50% in 0.6781 secs
+  75% in 0.7686 secs
+  90% in 1.4647 secs
+  95% in 1.5708 secs
+  99% in 1.9287 secs
+
+Details (average, fastest, slowest):
+  DNS+dialup:   0.0001 secs, 0.4390 secs, 3.5171 secs
+  DNS-lookup:   0.0000 secs, 0.0000 secs, 0.0000 secs
+  req write:    0.0001 secs, 0.0000 secs, 0.0213 secs
+  resp wait:    0.8237 secs, 0.4388 secs, 3.5168 secs
+  resp read:    0.0001 secs, 0.0000 secs, 0.0013 secs
+
+Status code distribution:
+  [200] 3707 responses
 ```  
 
 ### Ideal Performance (Direct Access)
 ```bash  
-$ hey -z 30s -c 100 -m POST https://ark.cn-beijing.volces.com/api/v3/chat/completions ...  
+$ hey -z 30s -c 100 -m POST https://ark.cn-beijing.volces.com/api/v3/chat/completions   -H "Content-Type: application/json"   -H "Authorization: Bearer xx-xx-xx"   -d '{       "model": "ep-xxx",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a helpful assistant."
+        },
+        {
+            "role": "user",
+            "content": "Hello!"
+        }
+    ]
+  }'
 
-Requests/sec: 5223.7164  
-Latency distribution:  
-  50% in 0.0129s  
-  99% in 0.2424s  
+Summary:
+  Total:        30.3043 secs
+  Slowest:      3.4912 secs
+  Fastest:      0.0085 secs
+  Average:      0.0190 secs
+  Requests/sec: 5223.7164
+
+  Total data:   33243210 bytes
+  Size/request: 210 bytes
+
+Response time histogram:
+  0.009 [1]     |
+  0.357 [158141]        |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.705 [131]   |
+  1.053 [27]    |
+  1.402 [0]     |
+  1.750 [0]     |
+  2.098 [0]     |
+  2.446 [0]     |
+  2.795 [0]     |
+  3.143 [0]     |
+  3.491 [1]     |
+
+
+Latency distribution:
+  10% in 0.0114 secs
+  25% in 0.0120 secs
+  50% in 0.0129 secs
+  75% in 0.0142 secs
+  90% in 0.0165 secs
+  95% in 0.0191 secs
+  99% in 0.2424 secs
+
+Details (average, fastest, slowest):
+  DNS+dialup:   0.0000 secs, 0.0085 secs, 3.4912 secs
+  DNS-lookup:   0.0000 secs, 0.0000 secs, 0.0498 secs
+  req write:    0.0000 secs, 0.0000 secs, 0.0027 secs
+  resp wait:    0.0188 secs, 0.0084 secs, 3.4911 secs
+  resp read:    0.0000 secs, 0.0000 secs, 0.0032 secs
+
+Status code distribution:
+  [401] 158301 responses 
 ```  
 
 ## 📜 License
