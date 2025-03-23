@@ -5,6 +5,8 @@ A temporary solution to address the `json_schema` incompatibility issue (e.g., w
 > Some model providers lack structured output support, which may result in errors like:  
 > `BadRequestError: Error code: 400 - {'error': {'message': "'response_format.type' : value is not one of the allowed values ['text','json_object']", 'type': 'invalid_request_error'}}`  
 > This proxy addresses providers that support JSON outputs but don't allow `json_schema` specification.
+
+
 ![image](https://github.com/user-attachments/assets/09d73124-9318-4c0a-96f2-8539ea8d20f6)
 
 ## 📦 Requirements
