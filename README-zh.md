@@ -4,6 +4,8 @@
 Some model providers don't have support for structured outputs. This sometimes results in an error that looks something like this:
 >`BadRequestError: Error code: 400 - {'error': {'message': "'response_format.type' : value is not one of the allowed values ['text','json_object']", 'type': 'invalid_request_error'}}`
 This is a shortcoming of some model providers - they support JSON outputs, but don't allow you to specify the json_schema to use for the output. We are working on a fix for this, but we suggest relying on providers that do have support for JSON schema output, because otherwise your app will often break because of malformed JSON.
+
+
 ![image](https://github.com/user-attachments/assets/09d73124-9318-4c0a-96f2-8539ea8d20f6)
 
 ## 📦 环境要求
